@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <meta name="theme-color" content="#01040c">
+
+  <title>كيرم أونلاين</title>
+
+  <link rel="stylesheet" href="الرئيسية.css?v=20260720-2">
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header class="top-bar">
+
+      <button class="coins-section clickable" id="coinsButton" type="button">
+        <span class="diamond-coin">
+          <span class="diamond-dollar">$</span>
+        </span>
+
+        <span id="coinsValue" class="balance-value">0</span>
+      </button>
+
+      <button class="player-section clickable" id="playerInfoButton" type="button">
+        <span class="player-text">
+          <strong id="playerName">اسم المستخدم</strong>
+          <small id="playerId">ID: 00000000</small>
+        </span>
+      </button>
+
+      <button class="profile-button clickable" id="profileButton" type="button">
+        <img id="profileImage" src="كيرم اونلاين.png" alt="الصورة الشخصية">
+      </button>
+
+      <input id="profileInput" type="file" accept="image/*" hidden>
+
+    </header>
+
+    <div class="server-status" id="serverStatus" data-state="connecting" role="status">
+      <i></i><span>جاري الاتصال بالسيرفر...</span>
+    </div>
+
+    <section class="logo-area">
+      <img class="game-logo" src="كيرم اونلاين.png" alt="كيرم أونلاين">
+    </section>
+
+    <button class="play-button clickable" id="playButton" type="button">
+      <span class="play-text">ابدأ اللعب</span>
+      <img class="play-image" src="زر اللعب.png" alt="ابدأ اللعب">
+    </button>
+
+    <section class="action-row">
+
+      <button class="small-card ranking-card clickable" id="rankingButton" type="button">
+        <img class="card-image" src="المضرب-الأسطوري.png" alt="التصنيف">
+        <span class="card-title">التصنيف</span>
+      </button>
+
+      <button class="small-card gift-card clickable" id="giftButton" type="button">
+        <img class="card-image" src="زر اللعب.png" alt="هدية اليوم">
+        <span class="card-title">هدية اليوم</span>
+      </button>
+
+    </section>
+
+    <nav class="bottom-nav">
+
+      <button class="nav-button" data-page="settings" type="button">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-text">الإعدادات</span>
+      </button>
+
+      <button class="nav-button" data-page="store" type="button">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-text">المتجر</span>
+      </button>
+
+      <button class="nav-button" id="mainChatNav" data-page="chat" type="button">
+        <span class="nav-icon">💬</span>
+        <span class="nav-text">الدردشة</span>
+        <i class="main-chat-unread" id="mainChatUnread" hidden>★</i>
+      </button>
+
+      <button class="nav-button active" data-page="home" type="button">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">الرئيسية</span>
+      </button>
+
+    </nav>
+
+    <section class="social-hub" id="socialHub" hidden aria-hidden="true">
+      <header class="social-topbar">
+        <button class="social-close" id="socialClose" type="button" aria-label="العودة للرئيسية">←</button>
+        <div class="social-title-wrap"><span class="social-title-icon">💬</span><div><h1>مجلس كيرم</h1><p>الأصدقاء والمحادثات</p></div></div>
+        <button class="social-add-open" id="socialAddOpen" type="button" aria-label="إضافة صديق" hidden>＋</button>
+      </header>
+      <nav class="social-tabs" aria-label="أقسام الدردشة">
+        <button class="active" data-social-tab="chats" type="button"><span>💬</span>المحادثات<i id="socialUnread" hidden>★</i></button>
+        <button data-social-tab="friends" type="button"><span>👥</span>الأصدقاء<i id="socialFriendUnread" hidden>★</i></button>
+        <button data-social-tab="requests" type="button"><span>✨</span>الطلبات<i id="socialRequestBadge" hidden>★</i></button>
+      </nav>
+      <div class="social-content">
+        <section class="social-list-pane">
+          <div class="social-section-heading"><b id="socialListTitle">المحادثات</b><small id="socialOnlineCount" hidden></small></div>
+          <div class="social-people-list" id="socialPeopleList"></div>
+        </section>
+        <section class="social-chat-pane" id="socialChatPane">
+          <div class="social-empty" id="socialEmpty"><span>✦</span><h2>اختر صديقًا</h2><p>ابدأ محادثة أو افتح ملف أحد أصدقائك</p></div>
+          <div class="social-conversation" id="socialConversation" hidden>
+            <header class="social-chat-head">
+              <button class="social-mobile-back" id="socialMobileBack" type="button">←</button>
+              <button class="social-chat-profile" id="socialChatProfile" type="button"><span class="social-avatar"><span id="socialChatAvatar">ن</span><i></i></span><span><b id="socialChatName">ناصر</b><small id="socialChatStatus">متصل الآن</small></span></button>
+              <button class="social-more" id="socialMore" type="button">•••</button>
+            </header>
+            <div class="social-messages" id="socialMessages"></div>
+            <form class="social-composer" id="socialForm"><input id="socialMessageInput" maxlength="300" placeholder="اكتب رسالة..." autocomplete="off"><button class="social-voice" id="socialVoice" type="button" aria-label="رسالة صوتية">🎙️</button><button class="social-send" type="submit" aria-label="إرسال">➤</button></form>
+          </div>
+        </section>
+      </div>
+      <div class="social-modal" id="socialProfileModal" hidden><div class="social-profile-card"><button class="social-modal-close" id="socialProfileClose" type="button">×</button><div class="social-profile-glow"></div><button class="social-profile-avatar" id="socialProfileAvatar" type="button" aria-label="مشاهدة صورة العرض">ن</button><h2 id="socialProfileName">ناصر</h2><p id="socialProfileId">ID: 27481953</p><span class="social-profile-state" id="socialProfileState">● متصل الآن</span><small class="social-profile-last-seen" id="socialProfileLastSeen">آخر ظهور منذ لحظات</small><div class="social-profile-stats"><span><b id="socialProfileWins">128</b><small>فوز</small></span><span><b id="socialProfileLevel">12</b><small>المستوى</small></span></div><button class="social-profile-action" id="socialProfileAction" type="button">فتح المحادثة الخاصة</button><button class="social-profile-add" id="socialProfileAdd" type="button">＋ إضافة صديق</button><button class="social-profile-view" id="socialProfileView" type="button">◉ مشاهدة صورة العرض</button><button class="social-profile-remove" id="socialProfileRemove" type="button">− إزالة من الأصدقاء</button><button class="social-profile-block" id="socialProfileBlock" type="button">⊘ حظر اللاعب</button></div></div>
+      <div class="social-modal" id="socialAddModal" hidden><form class="social-add-card" id="socialAddForm"><button class="social-modal-close" id="socialAddClose" type="button">×</button><span class="social-add-symbol">＋</span><h2>إضافة صديق</h2><p>اكتب رقم اللاعب لإرسال طلب صداقة</p><input id="socialFriendId" inputmode="text" maxlength="20" placeholder="رقم اللاعب"><button type="submit">إرسال الطلب</button></form></div>
+    </section>
+
+    <section class="main-settings-panel" id="mainSettingsPanel" hidden aria-hidden="true">
+      <header class="main-settings-head">
+        <button id="mainSettingsClose" type="button" aria-label="العودة للرئيسية">←</button>
+        <div><span>⚙️</span><h1 data-setting-ar="الإعدادات" data-setting-en="Settings">الإعدادات</h1><p data-setting-ar="خصص اللعبة كما تحب" data-setting-en="Customize your game">خصص اللعبة كما تحب</p></div>
+        <span class="settings-head-space"></span>
+      </header>
+      <div class="main-settings-scroll">
+        <section class="settings-card sound-card">
+          <h2><span>🔊</span><b data-setting-ar="الصوت والموسيقى" data-setting-en="Sound & Music">الصوت والموسيقى</b></h2>
+          <label class="setting-row"><span><b data-setting-ar="مؤثرات اللعبة" data-setting-en="Game sounds">مؤثرات اللعبة</b><small data-setting-ar="صوت الضرب والاصطدام والفوز" data-setting-en="Shots, collisions and victory sounds">صوت الضرب والاصطدام والفوز</small></span><input id="mainSfxToggle" type="checkbox" checked><i></i></label>
+          <label class="setting-row"><span><b data-setting-ar="الموسيقى" data-setting-en="Music">الموسيقى</b><small data-setting-ar="موسيقى هادئة في القائمة" data-setting-en="Soft menu background music">موسيقى هادئة في القائمة</small></span><input id="mainMusicToggle" type="checkbox"><i></i></label>
+          <label class="settings-slider"><span><b data-setting-ar="مستوى الصوت" data-setting-en="Volume">مستوى الصوت</b><output id="mainVolumeValue">70%</output></span><input id="mainVolumeRange" type="range" min="0" max="100" value="70"></label>
+        </section>
+        <section class="settings-card">
+          <h2><span>🎮</span><b data-setting-ar="اللعب والتحكم" data-setting-en="Gameplay">اللعب والتحكم</b></h2>
+          <label class="setting-row"><span><b data-setting-ar="الاهتزاز" data-setting-en="Vibration">الاهتزاز</b><small data-setting-ar="اهتزاز عند الضربة واصطدام الحبوب" data-setting-en="Vibrate on shots and piece collisions">اهتزاز عند الضربة واصطدام الحبوب</small></span><input id="mainHapticsToggle" type="checkbox" checked><i></i></label>
+          <label class="setting-row"><span><b data-setting-ar="توفير البطارية" data-setting-en="Battery saver">توفير البطارية</b><small data-setting-ar="تقليل المؤثرات البصرية" data-setting-en="Reduce visual effects">تقليل المؤثرات البصرية</small></span><input id="mainBatteryToggle" type="checkbox"><i></i></label>
+        </section>
+        <section class="settings-card">
+          <h2><span>🌐</span><b data-setting-ar="اللغة" data-setting-en="Language">اللغة</b></h2>
+          <div class="language-choice"><button id="languageArabic" class="active" type="button">العربية</button><button id="languageEnglish" type="button">English</button></div>
+        </section>
+        <section class="settings-card">
+          <h2><span>🔔</span><b data-setting-ar="التنبيهات والخصوصية" data-setting-en="Notifications & Privacy">التنبيهات والخصوصية</b></h2>
+          <label class="setting-row"><span><b data-setting-ar="تنبيهات الرسائل" data-setting-en="Message notifications">تنبيهات الرسائل</b><small data-setting-ar="إظهار النجمة عند وصول رسالة" data-setting-en="Show a star for new messages">إظهار النجمة عند وصول رسالة</small></span><input id="mainNotificationsToggle" type="checkbox" checked><i></i></label>
+          <button class="settings-link" id="privacyInfoButton" type="button"><span>🛡️</span><b data-setting-ar="الخصوصية والأمان" data-setting-en="Privacy & Security">الخصوصية والأمان</b><i>‹</i></button>
+        </section>
+        <button class="settings-reset" id="mainSettingsReset" type="button" data-setting-ar="إعادة الإعدادات الافتراضية" data-setting-en="Restore defaults">إعادة الإعدادات الافتراضية</button>
+        <p class="settings-version">Carrom Online • v1.0.0</p>
+      </div>
+    </section>
+
+    <!-- تغيير اسم المستخدم -->
+
+    <div class="dialog-overlay" id="usernameDialog" hidden>
+
+      <div class="dialog-box">
+
+        <h2 class="dialog-title">تغيير اسم المستخدم</h2>
+
+        <p class="dialog-desc">اكتب اسمك داخل اللعبة</p>
+
+        <input
+          id="usernameInput"
+          class="username-input"
+          type="text"
+          maxlength="20"
+          placeholder="اسم المستخدم"
+          autocomplete="off"
+          spellcheck="false"
+        >
+
+        <div class="dialog-buttons">
+
+          <button id="cancelUsernameButton" class="dialog-button cancel-button" type="button">
+            إلغاء
+          </button>
+
+          <button id="saveUsernameButton" class="dialog-button save-button" type="button">
+            موافق
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- اختيار قيمة اللعب -->
+
+    <div class="play-dialog-overlay" id="playDialog" hidden>
+
+      <div class="play-dialog-box">
+
+        <h2 class="play-dialog-title">اختر قيمة اللعب</h2>
+
+        <p class="play-dialog-desc">اختر الطاولة التي تريد الدخول لها</p>
+
+        <div class="play-price-list">
+
+          <button class="play-price-button" data-price="500" type="button">
+            العب بـ 500
+          </button>
+
+          <button class="play-price-button" data-price="3000" type="button">
+            العب بـ 3000
+          </button>
+
+          <button class="play-price-button" data-price="10000" type="button">
+            العب بـ 10000
+          </button>
+
+        </div>
+
+        <button class="play-close-button" id="closePlayDialog" type="button">
+          إلغاء
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- البحث عن الخصم -->
+
+    <section class="matchmaking-page" id="matchmakingPage" hidden>
+
+      <div class="matchmaking-card">
+
+        <div class="search-circle">
+          <div class="search-ring"></div>
+          <div class="search-coin">$</div>
+        </div>
+
+        <h2 class="matchmaking-title" id="matchmakingTitle">
+          جاري العثور على خصم
+        </h2>
+
+        <p class="matchmaking-desc" id="matchmakingDesc">
+          انتظر قليلًا... يتم البحث عن لاعب مناسب لك
+        </p>
+
+        <div class="selected-stake-box">
+          قيمة اللعب:
+          <span id="selectedStake">0</span>
+          عملة
+        </div>
+
+        <div class="loading-dots" id="loadingDots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <button class="cancel-search-button" id="cancelSearchButton" type="button">
+          إلغاء البحث
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- الطاولة الاحترافية -->
+
+    <section class="game-table-page" id="gameTablePage" hidden>
+
+      <div class="table-top-info">
+
+        <div class="table-player-box player-box">
+
+          <img id="tablePlayerImage" src="كيرم اونلاين.png" alt="">
+          <span class="turn-countdown" id="playerTurnTimer" hidden>15</span>
+
+          <div class="table-player-data">
+            <span id="tablePlayerName">اسم المستخدم</span>
+
+            <small id="playerColorLabel">
+              <i class="player-color player-white" id="playerColorDot"></i>
+              <span>الأبيض</span>
+            </small>
+
+            <span class="pocketed-score white-score">
+              <i></i>
+              <b id="playerScore">0</b>
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="session-center">
+          <span class="versus-label">VS</span>
+        </div>
+
+        <div class="table-player-box bot-box">
+
+          <div class="bot-avatar">🤖</div>
+          <span class="turn-countdown" id="botTurnTimer" hidden>15</span>
+
+          <div class="table-player-data">
+            <span id="botOpponentName">بوت كيرم</span>
+
+            <small id="botColorLabel">
+              <i class="player-color player-black" id="botColorDot"></i>
+              <span>الأسود</span>
+            </small>
+
+            <span class="pocketed-score black-score">
+              <i></i>
+              <b id="botScore">0</b>
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="queen-score-status" id="queenStatus">
+        الحبة الحمراء لم تُحسم
+      </div>
+
+      <section class="professional-board" id="professionalBoard">
+
+        <img
+          class="carrom-board-img"
+          src="طاوله كيرم.jpg"
+          alt="طاولة كيرم"
+        >
+
+        <canvas id="board"></canvas>
+
+      </section>
+
+      <section class="game-controls">
+
+        <div class="striker-track" id="track">
+
+          <div class="track-line"></div>
+
+          <div class="track-striker" id="trackStriker"></div>
+
+        </div>
+
+      </section>
+
+      <nav class="room-bottom-shortcuts" aria-label="أدوات غرفة اللعب">
+        <button class="room-settings-button" id="roomSettingsButton" type="button" aria-expanded="false">
+          <span aria-hidden="true">⚙️</span>
+          <small>الإعدادات</small>
+        </button>
+        <button class="chat-toggle-button" id="chatToggleButton" type="button" aria-expanded="false">
+          <span aria-hidden="true">💬</span>
+          <small>الدردشة</small>
+          <i id="chatBadge" hidden>0</i>
+        </button>
+      </nav>
+
+      <div hidden aria-hidden="true">
+        <span id="gameStatus"></span>
+        <span id="tableStakeValue"></span>
+        <span id="powerFill"></span>
+        <span id="powerText"></span>
+      </div>
+
+      <div class="winner-overlay" id="winner">
+
+        <div class="winner-box">
+          <div class="winner-trophy" id="winnerTrophy" aria-hidden="true">✓</div>
+          <h2 id="winnerTitle">لقد فزت</h2>
+
+          <div class="result-versus-row">
+            <div class="result-person result-person-self" id="winnerProfileButton" aria-label="صورتك الشخصية">
+              <span class="winner-avatar-frame"><img id="winnerPlayerImage" src="كيرم اونلاين.png" alt="صورتك"></span>
+              <b id="winnerSelfName">أنت</b>
+            </div>
+            <span class="result-blue-vs" aria-hidden="true">VS</span>
+            <button class="result-person result-person-opponent" id="winnerOpponentProfileButton" type="button" data-profile="opponent" aria-label="فتح ملف المنافس">
+              <span class="winner-avatar-frame"><img id="winnerOpponentImage" src="كيرم اونلاين.png" alt="صورة المنافس"></span>
+              <b id="winnerOpponentName">بوت كيرم</b>
+            </button>
+          </div>
+
+          <div class="winner-reward" id="winnerRewardBox">
+            <span>المكافأة</span>
+            <strong><b id="winnerReward">0</b></strong>
+          </div>
+
+          <button id="winnerAdButton" class="winner-ad-button" type="button">
+            <span aria-hidden="true">▶</span>
+            مشاهدة إعلان لزيادة المكافأة
+          </button>
+
+          <button id="winnerExitButton" class="winner-exit-button" type="button">
+            <span aria-hidden="true">⌂</span>
+            العودة إلى القائمة الرئيسية
+          </button>
+
+          <p id="winnerText" hidden></p>
+        </div>
+
+        <section class="result-profile-card" id="resultProfileCard" hidden aria-label="الملف الشخصي">
+          <button class="result-profile-close" id="resultProfileClose" type="button" aria-label="إغلاق">×</button>
+          <div class="result-profile-photo">
+            <img id="resultProfileImage" src="كيرم اونلاين.png" alt="صورة عرض الحساب">
+          </div>
+          <h3 id="resultProfileName">اسم المستخدم</h3>
+          <p id="resultProfileId">ID: 00000000</p>
+          <button class="result-add-friend" id="resultAddFriend" type="button">＋ إضافة صديق</button>
+        </section>
+
+      </div>
+
+      <aside class="room-chat room-page" id="roomChat" aria-hidden="true">
+        <header class="chat-header" id="chatDragHandle" aria-label="اسحب للأسفل للعودة">
+          <span class="chat-header-spacer" aria-hidden="true"></span>
+          <h2>الدردشة</h2>
+          <button class="chat-top-return" id="chatTopReturn" type="button" aria-label="العودة إلى الطاولة">←</button>
+        </header>
+
+        <section class="voice-participants" aria-label="المتحدثون في الغرفة">
+          <article class="voice-participant self" id="chatSelfParticipant">
+            <div class="voice-avatar-ring">
+              <img id="chatPlayerImage" src="كيرم اونلاين.png" alt="صورة صاحب الحساب">
+            </div>
+          </article>
+
+          <div class="voice-link"><span></span><b>VS</b><span></span></div>
+
+          <article class="voice-participant opponent" id="chatOpponentParticipant">
+            <div class="voice-avatar-ring bot-voice-avatar" role="button" tabindex="0" aria-label="كتم الخصم">
+              🤖
+              <span class="participant-mute-badge" id="opponentMuteBadge" hidden>مكتوم</span>
+            </div>
+          </article>
+        </section>
+
+        <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
+
+        <form class="chat-composer" id="chatForm">
+          <input id="chatInput" type="text" maxlength="120" placeholder="اكتب رسالة..." autocomplete="off">
+          <button id="sendChatButton" type="submit" aria-label="إرسال">➤</button>
+          <button class="chat-mic-button" id="micButton" type="button" aria-pressed="false">
+            <span id="micIcon" aria-hidden="true">🔇</span>
+            <small id="micLabel">المايك</small>
+          </button>
+        </form>
+      </aside>
+
+      <aside class="room-settings room-page" id="roomSettings" aria-hidden="true">
+        <header class="settings-header">
+          <button class="room-page-back" id="closeSettingsButton" type="button" aria-label="العودة إلى المباراة">‹</button>
+          <div>
+            <h2>إعدادات المباراة</h2>
+          </div>
+        </header>
+
+        <div class="settings-list">
+          <label class="setting-row">
+            <span><b>أصوات اللعبة</b><small>الضربات والمؤثرات داخل الطاولة</small></span>
+            <input id="gameSoundToggle" type="checkbox" checked>
+            <i></i>
+          </label>
+          <label class="setting-row">
+            <span><b>إيقاف المحادثة</b><small>تعطيل دردشة الغرفة والرسائل</small></span>
+            <input id="opponentSoundToggle" type="checkbox">
+            <i></i>
+          </label>
+          <label class="setting-row">
+            <span><b>الاهتزاز</b><small>اهتزاز خفيف عند التصادم والتسجيل</small></span>
+            <input id="vibrationToggle" type="checkbox" checked>
+            <i></i>
+          </label>
+        </div>
+
+        <div class="settings-actions">
+          <button class="surrender-button" id="surrenderButton" type="button">🏳️ انسحاب من المباراة</button>
+        </div>
+      </aside>
+
+      <div class="confirm-panel" id="surrenderConfirm" hidden>
+        <div>
+          <h3>تأكيد الانسحاب</h3>
+          <p>سيتم احتساب المباراة خسارة ولن تُسترجع قيمة الدخول.</p>
+          <div>
+            <button id="cancelSurrenderButton" type="button">إلغاء</button>
+            <button id="confirmSurrenderButton" type="button">تأكيد الانسحاب</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice-permission" id="voicePermission" hidden>
+        <strong>الميكروفون غير متاح</strong>
+        <span id="voicePermissionText">اسمح بالوصول إلى الميكروفون من إعدادات المتصفح.</span>
+        <button id="dismissVoicePermission" type="button">حسنًا</button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="online.js?v=20260723-2"></script>
+  <script src="الرئيسية.js"></script>
+
+</body>
+</html>
