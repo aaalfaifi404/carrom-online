@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  const API = "https://carrom-online.onrender.com";
+  const API = "https://carrom-star.onrender.com";
   const TOKEN_KEY = "carrom_server_token";
   const DEVICE_KEY = "carrom_device_id";
   const listeners = new Map();
@@ -69,3 +69,4 @@
     sendMessage: (scope, text) => request("/api/messages/" + encodeURIComponent(scope), { method: "POST", body: JSON.stringify({ text }) })
   };
 })();
+
